@@ -1,0 +1,9 @@
+{
+  "library": "/home/adrian/Desktop/testing/livingroom",
+  "users": {
+    "admin": {
+      "role": "admin",
+      "password": "test"
+    }
+  }
+}
