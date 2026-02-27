@@ -41,3 +41,27 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Gradle build artifacts
+/build/
+!gradle/wrapper/gradle-wrapper.jar   # keep wrapper jar
+
+# Gradle cache and logs
+.gradle/
+out/
+
+# Local configuration files
+local.properties
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.log
+*.tmp
+*.swp
