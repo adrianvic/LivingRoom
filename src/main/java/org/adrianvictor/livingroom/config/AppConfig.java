@@ -32,7 +32,7 @@ public class AppConfig {
     }
 
     public void hashPlaintextPasswords() {
-        if (users == null) return; // safety check
+        if (users == null) return;
         for (Map.Entry<String, UserConfig> entry : users.entrySet()) {
             Logger.info("Hashing user password for %s.".formatted(entry.getKey()));
             UserConfig user = entry.getValue();
@@ -42,7 +42,7 @@ public class AppConfig {
 
                 user.setSalt(salt);
                 user.setHash(hash);
-                user.setPassword(null); // clear plaintext
+                user.setPassword(null);
             }
         }
     }

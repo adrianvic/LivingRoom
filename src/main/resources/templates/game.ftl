@@ -46,7 +46,7 @@
                 <p>${game["description"]}</p>
             </div>
             </#if>
-            <#if userRole == "admin">Admin actions: <a href="/${webpref}/remove/${game["id"]}">deindex</a>, <a href="/${webpref}/scan">trigger new scan</a></#if>
+            <#if userRole == "admin"><p>Admin actions: <a href="/${webpref}/remove/${game["id"]}">deindex</a>, <a href="/${webpref}/scan">trigger new scan</a></p></#if>
         </div>
     </div>
 </div>

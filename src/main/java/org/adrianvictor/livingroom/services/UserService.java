@@ -32,7 +32,7 @@ public class UserService {
         Role role;
 
         try {
-            role = Role.valueOf(raw.getRole());
+            role = Role.valueOf(raw.getRole().toUpperCase());
         } catch (IllegalArgumentException e) {
             role = Role.USER;
         }

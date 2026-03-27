@@ -1,6 +1,7 @@
 package org.adrianvictor.livingroom.http;
 
 import org.adrianvictor.livingroom.http.handlers.*;
+import org.adrianvictor.livingroom.web.pages.Remove;
 
 import java.util.HashMap;
 

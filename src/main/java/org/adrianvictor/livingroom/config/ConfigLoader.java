@@ -15,7 +15,7 @@ public class ConfigLoader {
 
     @SuppressWarnings("unchecked")
     public static AppConfig load(String path) throws Exception {
-        if (config != null) return config; // singleton
+        if (config != null) return config;
 
         File file = new File(path);
         AppConfig appConfig;

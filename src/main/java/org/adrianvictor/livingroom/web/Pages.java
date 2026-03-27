@@ -13,6 +13,7 @@ public class Pages {
         map.put("game", new Game());
         map.put("logout", new Logout());
         map.put("scan", new Scan());
+        map.put("remove", new Remove());
     }
 
     public static HashMap<String, Page> getAll() {
