@@ -2,7 +2,6 @@ package org.adrianvictor.livingroom.data;
 
 import org.adrianvictor.livingroom.Logger;
 import org.adrianvictor.livingroom.Main;
-import org.adrianvictor.livingroom.config.AppConfig;
 import org.adrianvictor.livingroom.data.catalog.Item;
 import org.adrianvictor.livingroom.data.catalog.Property;
 import org.json.simple.JSONObject;
@@ -96,7 +95,7 @@ public class Database {
         String sql = "SELECT id FROM games WHERE name=?";
 
         try (Connection conn = DriverManager.getConnection(url);
-             PreparedStatement stmt = conn.prepareStatement(sql);) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, name);
             try (ResultSet rs = stmt.executeQuery()) {
                 return rs.next();
@@ -111,7 +110,7 @@ public class Database {
         String sql = "SELECT * FROM games WHERE id=?";
 
         try (Connection conn = DriverManager.getConnection(url);
-             PreparedStatement stmt = conn.prepareStatement(sql);) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, String.valueOf(id));
             try (ResultSet rs = stmt.executeQuery()) {
                 List<Item> processed = processResultSet(rs);
@@ -127,9 +126,28 @@ public class Database {
         }
     }
 
+    public List<Item> search(String term) {
+        String sql = "SELECT * FROM games WHERE name LIKE ?";
+        List<Item> result = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(url);
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + term + "%"); // partial match
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                result.addAll(processResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            Logger.error(e.getMessage());
+        }
+
+        return result;
+    }
+
     public List<Item> getAllGames() {
         String sql = "SELECT * FROM games";
-        JSONParser parser = new JSONParser();
         List<Item> result = new ArrayList<>();
 
         try (Connection conn = DriverManager.getConnection(url);

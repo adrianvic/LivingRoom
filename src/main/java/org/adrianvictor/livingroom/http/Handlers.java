@@ -15,6 +15,7 @@ public class Handlers {
         map.put(new StaticWebHandler(), "/static");
         map.put(new WebRedirectHandler(), "/");
         map.put(new LoginHandler(), "/login");
+        map.put(new SearchHandler(), "/search");
     }
 
     public static HashMap<Handler, String> getAll() {

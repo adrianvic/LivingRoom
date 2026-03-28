@@ -17,10 +17,10 @@ The server includes a (working but very WIP) HTTP API for third-party clients an
 - [x] Authentication
 - [x] Library info
 - [x] Game info
+- [x] Search
 - [x] Downloads
   - [ ] Resumable downloads
 - [ ] User Management
-- [ ] Search
 
 ### Web interface
 - [x] Authentication

@@ -68,7 +68,7 @@ public class Server {
                     exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
                     exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
 
-                    if (!(handler instanceof WebHandler) && !(handler instanceof LoginHandler)) {
+                    if (!(handler instanceof WebHandler) && !(handler instanceof LoginHandler) && !(handler instanceof StaticWebHandler) && !(handler instanceof WebRedirectHandler)) {
                         Session session = AuthenticationHelper.getAuthenticatedSession(exchange);
                         if (session == null) {
                             try {

@@ -1,5 +1,7 @@
 package org.adrianvictor.livingroom.http;
 
+import org.json.simple.JSONObject;
+
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +31,17 @@ public record HttpResponse(
         return new HttpResponse(
                 status,
                 text.getBytes(StandardCharsets.UTF_8),
+                Map.of("Content-Type", "application/json")
+        );
+    }
+
+    public static HttpResponse json(int status, Map<String, Object> extraFields) {
+        JSONObject json = new JSONObject();
+        json.putAll(extraFields);
+
+        return new HttpResponse(
+                status,
+                json.toJSONString().getBytes(StandardCharsets.UTF_8),
                 Map.of("Content-Type", "application/json")
         );
     }
