@@ -73,7 +73,6 @@ public class FileHandler implements Handler {
             }
         } catch (Exception e) {
             send404(exchange);
-            e.printStackTrace();
         }
     }
 
@@ -83,9 +82,7 @@ public class FileHandler implements Handler {
             exchange.sendResponseHeaders(404, notFound.length);
             exchange.getResponseBody().write(notFound);
             exchange.getResponseBody().close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) {}
     }
 
     private void send404(HttpExchange exchange) {
