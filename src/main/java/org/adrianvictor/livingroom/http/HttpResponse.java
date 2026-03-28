@@ -1,5 +1,6 @@
 package org.adrianvictor.livingroom.http;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,9 +19,17 @@ public record HttpResponse(
 
     public static HttpResponse text(int status, String text) {
         return new HttpResponse(
-                400,
+                status,
                 text.getBytes(),
                 Map.of()
+        );
+    }
+
+    public static HttpResponse json(int status, String text) {
+        return new HttpResponse(
+                status,
+                text.getBytes(StandardCharsets.UTF_8),
+                Map.of("Content-Type", "application/json")
         );
     }
 

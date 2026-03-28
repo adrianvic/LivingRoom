@@ -26,7 +26,8 @@ public class LoginHandler implements Handler {
         Session session = AuthenticationHelper.getAuthenticatedSession(exchange);
 
         if (session != null) {
-            return HttpResponse.text(400, "You're already logged in.");
+            String jsonResponse = "{\"success\": false, \"message\": \"You're already logged in.\"}";
+            return HttpResponse.json(400, jsonResponse);
         }
 
         try {
@@ -39,7 +40,8 @@ public class LoginHandler implements Handler {
             String password = (String) json.get("password");
 
             if (password == null || username == null) {
-                return HttpResponse.text(400, "You must provide an username and password.");
+                String jsonResponse = "{\"success\": false, \"message\": \"Invalid username or password.\"}";
+                return HttpResponse.json(400, jsonResponse);
             }
 
             try {
@@ -50,20 +52,23 @@ public class LoginHandler implements Handler {
                             "SESSIONID=" + s.getSessionId() + "; Path=/; HttpOnly; SameSite=Strict");
 
                     String jsonResponse = "{\"success\": true, \"sessionId\": \"" + s.getSessionId() + "\"}";
-                    return HttpResponse.ok(jsonResponse.getBytes(StandardCharsets.UTF_8), "application/json");
+                    return HttpResponse.json(200, jsonResponse);
                 } else {
-                    return HttpResponse.text(401, "Invalid username or password");
+                    String jsonResponse = "{\"success\": false, \"message\": \"Invalid username or password.\"}";
+                    return HttpResponse.json(401, jsonResponse);
                 }
             } catch (Exception e) {
                 Logger.error("User lookup error: " + e.getMessage());
-                return HttpResponse.text(401, "Invalid username or password");
+                String jsonResponse = "{\"success\": false, \"message\": \"Invalid username or password.\"}";
+                return HttpResponse.json(401, jsonResponse);
             }
         } catch (IOException e) {
             Logger.error("Error reading request body: " + e.getMessage());
-            return HttpResponse.text(400, "Invalid request");
+            String jsonResponse = "{\"success\": false, \"message\": \"Invalid request.\"}";
+            return HttpResponse.json(400, jsonResponse);
         } catch (ParseException e) {
-            Logger.error("Error parsing JSON: " + e.getMessage());
-            return HttpResponse.text(400, "Invalid JSON format");
+            String jsonResponse = "{\"success\": false, \"message\": \"Invalid body JSON.\"}";
+            return HttpResponse.json(400, jsonResponse);
         }
     }
 }
