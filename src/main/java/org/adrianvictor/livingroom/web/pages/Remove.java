@@ -3,13 +3,10 @@ package org.adrianvictor.livingroom.web.pages;
 import com.sun.net.httpserver.HttpExchange;
 import freemarker.template.Configuration;
 import org.adrianvictor.livingroom.Logger;
-import org.adrianvictor.livingroom.Main;
 import org.adrianvictor.livingroom.data.Database;
-import org.adrianvictor.livingroom.data.Indexer;
 import org.adrianvictor.livingroom.web.Page;
 import org.adrianvictor.livingroom.web.QuickResponses;
 
-import java.io.File;
 import java.util.Map;
 
 public class Remove implements Page {

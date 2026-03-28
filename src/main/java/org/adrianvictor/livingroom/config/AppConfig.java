@@ -30,6 +30,7 @@ public class AppConfig {
     public void setUsers(Map<String, UserConfig> users) {
         this.users = (users != null) ? users : new HashMap<>();
     }
+    public void addUser(String name, UserConfig config) { this.users.put(name, config); }
 
     public void hashPlaintextPasswords() {
         if (users == null) return;

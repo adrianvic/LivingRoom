@@ -5,9 +5,9 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import org.adrianvictor.livingroom.Logger;
 import org.adrianvictor.livingroom.Main;
-import org.adrianvictor.livingroom.http.handlers.FileHandler;
-import org.adrianvictor.livingroom.http.handlers.ImageHandler;
-import org.adrianvictor.livingroom.http.handlers.StaticWebHandler;
+import org.adrianvictor.livingroom.auth.Session;
+import org.adrianvictor.livingroom.http.handlers.*;
+import org.adrianvictor.livingroom.http.utils.AuthenticationHelper;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -42,7 +42,7 @@ public class Server {
     public void registerHandler(Handler handler, String path) {
         httpServer.createContext(path, new HttpHandler() {
             @Override
-            public void handle(HttpExchange exchange) throws IOException {
+            public void handle(HttpExchange exchange) {
                 try {
                     String fullPath = exchange.getRequestURI().getPath();
 
@@ -68,29 +68,37 @@ public class Server {
                     exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
                     exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
 
-                    if (handler instanceof FileHandler) {
-                        ((FileHandler) handler).handleStream(exchange, decoded);
-                    } else if (handler instanceof ImageHandler) {
-                        ((ImageHandler) handler).handleStream(exchange, decoded);
-                    } else if (handler instanceof StaticWebHandler) {
-                        ((StaticWebHandler) handler).handleStream(exchange, decoded);
-                    } else {
-                        HttpResponse result = handler.result(baseAddress, decoded, exchange);
-
-                        for (Map.Entry<String, String> header : result.headers().entrySet()) {
-                            exchange.getResponseHeaders().set(header.getKey(), header.getValue());
+                    if (!(handler instanceof WebHandler) && !(handler instanceof LoginHandler)) {
+                        Session session = AuthenticationHelper.getAuthenticatedSession(exchange);
+                        if (session == null) {
+                            try {
+                                AuthenticationHelper.sendUnauthorized(exchange, null);
+                            } catch (IOException ignored) {}
                         }
+                    }
 
-                        exchange.sendResponseHeaders(result.status(), result.body().length);
+                    switch (handler) {
+                        case FileHandler fileHandler -> fileHandler.handleStream(exchange, decoded);
+                        case ImageHandler imageHandler -> imageHandler.handleStream(exchange, decoded);
+                        case StaticWebHandler staticWebHandler -> staticWebHandler.handleStream(exchange, decoded);
+                        default -> {
+                            HttpResponse result = handler.result(baseAddress, decoded, exchange);
 
-                        OutputStream os = exchange.getResponseBody();
-                        os.write(result.body());
-                        os.close();
+                            for (Map.Entry<String, String> header : result.headers().entrySet()) {
+                                exchange.getResponseHeaders().set(header.getKey(), header.getValue());
+                            }
+
+                            exchange.sendResponseHeaders(result.status(), result.body().length);
+
+                            OutputStream os = exchange.getResponseBody();
+                            os.write(result.body());
+                            os.close();
+                        }
                     }
                 } catch (IOException ignored) {
                 } catch (Exception e) {
                     Logger.error("Handler error: " + e.getMessage());
-                    e.printStackTrace();
+                    //e.printStackTrace();
                     try {
                         exchange.sendResponseHeaders(500, 0);
                         exchange.close();

@@ -16,6 +16,14 @@ public record HttpResponse(
         );
     }
 
+    public static HttpResponse text(int status, String text) {
+        return new HttpResponse(
+                400,
+                text.getBytes(),
+                Map.of()
+        );
+    }
+
     public static HttpResponse ok(byte[] body, String contentType) {
         return ok(body, contentType, new HashMap<>());
     }

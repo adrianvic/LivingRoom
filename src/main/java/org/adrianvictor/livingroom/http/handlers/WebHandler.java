@@ -83,7 +83,6 @@ public class WebHandler implements Handler {
 
         if ("POST".equals(method)) {
             try {
-                // Read POST body
                 String body = new String(exchange.getRequestBody().readAllBytes());
                 String[] params = body.split("&");
                 String username = null;

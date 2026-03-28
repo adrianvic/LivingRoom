@@ -13,7 +13,6 @@ public class ConfigLoader {
 
     private static AppConfig config;
 
-    @SuppressWarnings("unchecked")
     public static AppConfig load(String path) throws Exception {
         if (config != null) return config;
 

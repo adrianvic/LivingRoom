@@ -7,8 +7,14 @@ This is a work-in-progress kinda of game launcher. LivingRoom is a server softwa
 The server includes a (working but very WIP) HTTP API for third-party clients and a web interface.
 
 ## Features
+### Server
+- [x] Game scanner
+  - [ ] Automatically deindex removed game
+- [x] SQLite DB
+- [x] Metadata
+
 ### HTTP API
-- [ ] Authentication
+- [x] Authentication
 - [x] Library info
 - [x] Game info
 - [x] Downloads
@@ -24,7 +30,7 @@ The server includes a (working but very WIP) HTTP API for third-party clients an
   - [x] Deindex game
   - [x] Trigger new scan
 - [x] Downloads (from the API)
-- [x] User Management
+- [ ] User Management
 
 ## Stack
  - **Freemarker** for web rendering

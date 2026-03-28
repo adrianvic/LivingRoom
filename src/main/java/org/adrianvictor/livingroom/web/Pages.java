@@ -5,7 +5,7 @@ import org.adrianvictor.livingroom.web.pages.*;
 import java.util.HashMap;
 
 public class Pages {
-    private static HashMap<String, Page> map = new HashMap<>();
+    private static final HashMap<String, Page> map = new HashMap<>();
 
     static {
         Index index = new Index();

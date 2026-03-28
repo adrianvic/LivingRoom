@@ -12,9 +12,6 @@ public class Login implements Page {
     @Override
     public String result(Configuration cfg, String baseAddress, String path, Map<String, Object> data, HttpExchange exchange) {
         try {
-            // Check if this is a POST request
-            // For now, just show the login form
-
             freemarker.template.Template template = cfg.getTemplate("login.ftl");
 
             StringWriter writer = new StringWriter();
