@@ -1,6 +1,7 @@
 package org.adrianvictor.livingroom.config;
 
 import org.adrianvictor.livingroom.Logger;
+import org.adrianvictor.livingroom.auth.User;
 import org.adrianvictor.livingroom.utils.PasswordUtils;
 import org.json.simple.JSONObject;
 

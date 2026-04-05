@@ -50,6 +50,8 @@ public class ConfigLoader {
                 AppConfig.UserConfig user = new AppConfig.UserConfig();
                 user.setRole((String) userJson.get("role"));
                 user.setPassword((String) userJson.get("password"));
+                user.setSalt((String) userJson.get("salt"));
+                user.setHash((String) userJson.get("hash"));
 
                 users.put(username, user);
             }

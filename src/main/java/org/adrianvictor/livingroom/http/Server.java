@@ -73,6 +73,7 @@ public class Server {
                         if (session == null) {
                             try {
                                 AuthenticationHelper.sendUnauthorized(exchange, null);
+                                return;
                             } catch (IOException ignored) {}
                         }
                     }
@@ -98,7 +99,7 @@ public class Server {
                 } catch (IOException ignored) {
                 } catch (Exception e) {
                     Logger.error("Handler error: " + e.getMessage());
-                    //e.printStackTrace();
+                    e.printStackTrace();
                     try {
                         exchange.sendResponseHeaders(500, 0);
                         exchange.close();

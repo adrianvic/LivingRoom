@@ -1,6 +1,7 @@
 package org.adrianvictor.livingroom.http;
 
 import org.adrianvictor.livingroom.http.handlers.*;
+import org.adrianvictor.livingroom.http.handlers.UserHandler;
 
 import java.util.HashMap;
 
@@ -16,6 +17,7 @@ public class Handlers {
         map.put(new WebRedirectHandler(), "/");
         map.put(new LoginHandler(), "/login");
         map.put(new SearchHandler(), "/search");
+        map.put(new UserHandler(), "/user");
     }
 
     public static HashMap<Handler, String> getAll() {

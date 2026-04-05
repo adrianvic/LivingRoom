@@ -20,7 +20,9 @@ The server includes a (working but very WIP) HTTP API for third-party clients an
 - [x] Search
 - [x] Downloads
   - [ ] Resumable downloads
-- [ ] User Management
+- [x] User Management
+  - [x] Promote/demote users
+  - [ ] Create/delete users
 
 ### Web interface
 - [x] Authentication

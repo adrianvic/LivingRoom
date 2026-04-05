@@ -25,7 +25,7 @@ public class UserService {
     public User getUser(String user) {
         AppConfig.UserConfig raw = users.get(user);
 
-        if (user == null) {
+        if (raw == null) {
             return null;
         }
 
